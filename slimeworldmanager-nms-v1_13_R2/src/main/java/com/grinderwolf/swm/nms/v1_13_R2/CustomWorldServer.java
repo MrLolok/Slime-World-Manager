@@ -17,7 +17,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class CustomWorldServer extends WorldServer {
-
     private static final Logger LOGGER = LogManager.getLogger("SWM World");
     private static final ExecutorService WORLD_SAVER_SERVICE = Executors.newFixedThreadPool(4, new ThreadFactoryBuilder()
             .setNameFormat("SWM Pool Thread #%1$d").build());
@@ -49,11 +48,6 @@ public class CustomWorldServer extends WorldServer {
         // Load all chunks
         CustomChunkLoader chunkLoader = ((CustomDataManager) this.getDataManager()).getChunkLoader();
         chunkLoader.loadAllChunks(this);
-
-        // Disable auto save period as it's constantly saving the world
-        if (v1_13_R2SlimeNMS.IS_PAPER) {
-            this.paperConfig.autoSavePeriod = 0;
-        }
     }
 
     @Override

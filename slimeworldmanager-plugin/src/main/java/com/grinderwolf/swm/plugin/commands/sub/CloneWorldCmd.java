@@ -86,13 +86,17 @@ public class CloneWorldCmd implements Subcommand {
                             SWMPlugin.getInstance().generateWorld(slimeWorld);
                         } catch (IllegalArgumentException ex) {
                             sender.sendMessage(Logging.COMMAND_PREFIX + ChatColor.RED + "Failed to generate world " + worldName + ": " + ex.getMessage() + ".");
-
                             return;
                         }
 
                         sender.sendMessage(Logging.COMMAND_PREFIX + ChatColor.GREEN + "World " + ChatColor.YELLOW + worldName
                                 + ChatColor.GREEN + " loaded and generated in " + (System.currentTimeMillis() - start) + "ms!");
+
                     });
+
+                    // Config
+                    config.getWorlds().put(worldName, worldData);
+                    config.save();
                 } catch (WorldAlreadyExistsException ex) {
                     sender.sendMessage(Logging.COMMAND_PREFIX + ChatColor.RED + "There is already a world called " + worldName + " stored in " + dataSource + ".");
                 } catch (CorruptedWorldException ex) {
